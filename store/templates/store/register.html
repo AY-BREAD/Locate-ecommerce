@@ -1,0 +1,14 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+    <h2>Register</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+{% endblock %}
+{% block footer %}
+<!-- Leave this empty to not show the footer on the login page -->
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+
+<main class="product-detail">
+
+  <!-- Image Section -->
+  <div class="product-image">
+    <div class="image-container">
+        <!-- Display the current image -->
+        <img 
+            src="{% if current_image %}{{ current_image.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" 
+            alt="{{ product.name }}" 
+            class="product-img">
+
+        <!-- Navigation buttons -->
+        <a 
+            href="?image={{ previous_image.id }}" 
+            class="prev-btn {% if not previous_image %}hidden{% endif %}">
+            &#8249;
+        </a>
+        <a 
+            href="?image={{ next_image.id }}" 
+            class="next-btn {% if not next_image %}hidden{% endif %}">
+            &#8250;
+        </a>
+    </div>
+
+    <!-- Thumbnails section -->
+    
+</div>
+    
+  <!-- Product Info Section -->
+  <div class="product-info">
+    <h1 class="product-title">{{ product.name }}</h1>
+
+    <!-- Price Info Section -->
+    <div class="price-info">
+      <span class="price">${{ product.price }}</span>
+      {% if product.original_price %}
+        <span class="old-price">${{ product.original_price }}</span>
+      {% endif %}
+      {% if product.discount %}
+        <span class="discount">{{ product.discount }} OFF</span>
+      {% endif %}
+    </div>
+
+    <!-- Gender and Stock Status Section -->
+    <div class="gender-stock-wrapper">
+      {% if product.gender %}
+        <div class="gender">
+          <p>{{ product.get_gender_display }}</p> <!-- Display human-readable gender -->
+        </div>
+      {% endif %}
+
+      <div class="stock-status">
+        {% if product.is_in_stock %}
+          <button class="glass-btn in-stock-btn">In Stock</button>
+        {% else %}
+          <button class="glass-btn out-of-stock-btn">Out of Stock</button>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Sizes Section -->
+    {% if product.sizes.all %}
+      <div class="sizes">
+        <h3>Choose Your Size</h3>
+        <div class="size-options">
+          {% for size in product.sizes.all %}
+            <button class="size-btn">{{ size.size_label }}</button>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Product Details Section -->
+    <div class="product-details">
+      <details class="detail-item">
+        <summary>Product Description</summary>
+        <p>{{ product.description }}</p>
+      </details>
+      {% if product.material %}
+        <details class="detail-item">
+          <summary>Material</summary>
+          <p>{{ product.material }}</p>
+        </details>
+      {% endif %}
+      <details class="detail-item">
+        <summary>Delivery and Returns</summary>
+        <p>{{ product.delivery_returns }}</p>
+      </details>
+    </div>
+
+    <!-- Add to Cart Button -->
+    {% if product.is_in_stock %}
+      <button class="purchase-btn btn btn-outline-secondary add-btn update-cart" 
+              data-product="{{ product.id }}" data-action="add">
+        Add to Cart
+      </button>
+    {% else %}
+      <button class="purchase-btn btn btn-outline-secondary add-btn" disabled>Out of Stock</button>
+    {% endif %}
+      
+  </div>
+
+</main>
+
+{% endblock content %}

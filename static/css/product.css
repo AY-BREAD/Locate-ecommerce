@@ -1,0 +1,254 @@
+/* Base styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9f9f9; /* Light background */
+  color: #111; /* Dark text for contrast */
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #ccc; /* Light border */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.navbar-icons .icon-btn {
+  background: none;
+  border: none;
+  color: #111; /* Dark color for icons */
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.navbar-icons .icon-btn:focus {
+  outline: none;
+}
+
+/* Product Detail Section */
+.product-detail {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px; /* Add gap between the image and info sections */
+}
+
+/* Product Image Section */
+.product-image {
+  flex: 2;
+  max-width: 100%; /* Allow the image container to fill the available space */
+  position: relative;
+  background-color: transparent;
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: auto; /* Let the height adjust based on the image's aspect ratio */
+}
+
+.product-img {
+  width: 100%; /* The image will take up the full width of its container */
+  height: auto; /* Keep the aspect ratio intact */
+  object-fit: contain; /* Ensure the image fits inside the container */
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Navigation buttons for images */
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2rem;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+/* Thumbnails section */
+.image-thumbnails {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+  overflow-x: auto; /* Allow horizontal scrolling */
+}
+
+.thumbnail {
+  width: 50px;  /* Larger thumbnail size */
+  height: 50px;
+  margin: 0 5px;
+  background-color: #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent; /* Add border for active state */
+}
+
+.thumbnail.active {
+  background-color: #111;
+  border-color: #007bff; /* Highlight active thumbnail with blue border */
+}
+
+/* Product Info Section */
+.product-info {
+  flex: 3;
+  margin-left: 40px;
+  max-width: 33.33%;
+}
+
+.product-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.price-info {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.old-price {
+  font-size: 1rem;
+  text-decoration: line-through;
+  color: #888;
+  margin-left: 10px;
+}
+
+.discount {
+  font-size: 1rem;
+  color: red;
+  margin-left: 10px;
+}
+
+/* Gender and Stock Section */
+.gender-stock-wrapper {
+  display: flex; /* Ensures side by side layout */
+  gap: 15px; /* Adds space between Gender and In Stock */
+  margin-top: 20px; /* Space from the above elements */
+}
+
+.gender, .stock-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.7); /* Glass effect */
+  border: 2px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+  border-radius: 10px;
+  backdrop-filter: blur(5px); /* Glass-like effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Slight shadow for a glassy look */
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.gender p, .stock-status button {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* In Stock and Out of Stock Button Styling */
+.in-stock-btn {
+  background-color: transparent;
+  border: none;
+  color: #28a745; /* Green text for In Stock */
+  cursor: pointer;
+}
+
+.out-of-stock-btn {
+  background-color: transparent;
+  border: none;
+  color: #dc3545; /* Red text for Out of Stock */
+  cursor: pointer;
+}
+
+/* Size selection section */
+.sizes {
+  margin-top: 20px;
+}
+
+.sizes h3 {
+  font-weight: 500;
+}
+
+.size-options {
+  display: flex;
+  margin-top: 10px;
+  gap: 15px; /* Add space between size buttons */
+}
+
+.size-btn {
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 2px solid #ccc;
+  color: #111;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.size-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* Product details section */
+.product-details {
+  margin-top: 20px;
+}
+
+.detail-item {
+  border-top: 2px solid #ccc;
+  padding: 10px 0;
+}
+
+.product-details summary {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Purchase button */
+.purchase-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.purchase-btn:hover {
+  background-color: #0056b3;
+}

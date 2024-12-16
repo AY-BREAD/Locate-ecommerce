@@ -1,0 +1,85 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Profile</h2>
+        <form method="post" action="{% url 'update_profile' %}">
+            {% csrf_token %}
+            <div class="profile-info">
+                <h3>Personal Information</h3>
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" class="form-control" value="{{ user.first_name }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" class="form-control" value="{{ user.last_name }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" value="{{ user.email }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number:</label>
+                    <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ user.profile.phone_number }}">
+                </div>
+            </div>
+
+            <div class="address-info">
+                <h3>Shipping Address</h3>
+                <div class="form-group">
+                    <label for="street">Street:</label>
+                    <input type="text" id="street" name="street" class="form-control" value="{{ user.profile.address.street }}">
+                </div>
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" class="form-control" value="{{ user.profile.address.city }}">
+                </div>
+                <div class="form-group">
+                    <label for="postal_code">Postal Code:</label>
+                    <input type="text" id="postal_code" name="postal_code" class="form-control" value="{{ user.profile.address.postal_code }}">
+                </div>
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <input type="text" id="country" name="country" class="form-control" value="{{ user.profile.address.country }}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+
+        <div class="order-history">
+            <h3>Order History</h3>
+            <ul>
+                {% for order in orders %}
+                    <li>Order #{{ order.id }} - Status: {{ order.status }} - Total: ${{ order.total }}</li>
+                {% empty %}
+                    <li>You have not placed any orders yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="change-password">
+            <h3>Change Password</h3>
+            <form method="post" action="{% url 'change_password' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="old_password">Old Password:</label>
+                    <input type="password" id="old_password" name="old_password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_password">New Password:</label>
+                    <input type="password" id="new_password" name="new_password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm New Password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+        </div>
+
+        <!-- Logout Button -->
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+{% endblock %}

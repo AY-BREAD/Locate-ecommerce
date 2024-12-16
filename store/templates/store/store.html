@@ -1,0 +1,74 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+  <!-- Cart Section -->
+  <h2>TRENDING</h2>
+  {% if items %}
+    {% for item in items %}
+      <div class="cart-row">
+        <div style="flex:2">
+          <img class="row-image" src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}">
+        </div>
+        <div style="flex:2"><p>{{ item.product.name }}</p></div>
+        <div style="flex:1"><p>${{ item.product.price|floatformat:2 }}</p></div>
+        <div style="flex:1">
+          <p class="quantity">{{ item.quantity|default:0 }}</p>
+          <div class="quantity">
+            <img class="chg-quantity" src="{% static 'images/arrow-up.png' %}" data-product="{{ item.product.id }}" data-action="add">
+            <img class="chg-quantity" src="{% static 'images/arrow-down.png' %}" data-product="{{ item.product.id }}" data-action="remove">
+          </div>
+        </div>
+        <!-- Total Price per Item -->
+        {% with total_price=item.product.price|multiply:item.quantity %}
+          <div style="flex:1"><p>${{ total_price|floatformat:2|default:"0.00" }}</p></div>
+        {% endwith %}
+      </div>
+    {% endfor %}
+    <!-- Cart Summary -->
+    <div class="cart-summary">
+      <p>Total Items: {{ cartItems }}</p>
+      <p>Total Price: ${{ order.get_cart_total|floatformat:2 }}</p>
+      {% if order.shipping %}
+        <p>Shipping: Yes</p>
+      {% else %}
+        <p>Shipping: No</p>
+      {% endif %}
+      <a href="{% url 'checkout' %}" class="btn btn-success">Proceed to Checkout</a>
+    </div>
+  {% else %}
+    <p></p>
+  {% endif %}
+
+  <!-- Product Listings Section -->
+  <div class="row">
+    {% for product in products %}
+      <div class="col-lg-4">
+        <img class="thumbnail" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}">
+        <div class="box-element product">
+          <h6><strong>{{ product.name }}</strong></h6>
+          <hr>
+
+          <!-- Add to Cart Button -->
+          {% if product.is_in_stock %}
+            <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">
+              Add to Cart
+            </button>
+          {% else %}
+            <button class="btn btn-outline-secondary add-btn" disabled>Out of Stock</button>
+          {% endif %}
+
+          <!-- View Product Button -->
+          <a class="btn btn-outline-success" href="{% url 'product_detail' product.id %}">View</a>
+
+          <!-- Price Display -->
+          <div class="price">
+            <h4><strong>${{ product.price|floatformat:2 }}</strong></h4>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock content %}
