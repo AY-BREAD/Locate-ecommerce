@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'locate.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'locatedb',
-        'USER': 'locatedb_user',
-        'PASSWORD': 'VFTVvdTcx8lwnyVTcyZ27DqQMr39ht6b',
-        'HOST': 'dpg-ctg5829opnds73dldujg-a.oregon-postgres.render.com',  
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME', 'locatedb'),
+        'USER': os.environ.get('DB_USER', 'locatedb_user'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'VFTVvdTcx8lwnyVTcyZ27DqQMr39ht6b'),
+        'HOST': os.environ.get('DB_HOST', 'dpg-ctg5829opnds73dldujg-a.oregon-postgres.render.com'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -124,11 +124,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# URL to access static files
 STATIC_URL = '/static/'
 
+# Directories to look for static files
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
+
+# Directory to collect static files for production
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 MEDIA_URL = '/images/'
 
